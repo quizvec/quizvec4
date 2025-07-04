@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tênis de Graça da Nike - Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 60px;
+            max-width: 200px;
+            height: auto;
+            width: auto;
+        }
+
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            gap: 8px;
+        }
+
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background: #ff4757;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .social-proof-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .progress-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e1e8ed;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+            width: 95%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-percentage {
+            position: absolute;
+            right: 0;
+            top: -25px;
+            color: #ff4757;
+            font-size: 14px;
+            font-weight: bold;
+            animation: urgentPulse 2s infinite;
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .urgency-text {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quiz-title {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .quiz-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 220px;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .option-card:hover {
+            border-color: #3a7bd5;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(58, 123, 213, 0.2);
+        }
+
+        .option-card.selected {
+            border-color: #00d2ff;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+        }
+
+        .option-image {
+            width: 100%;
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .gender-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .rating-text {
+            font-size: 12px;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        .footer {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3a7bd5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .quiz-title {
+                font-size: 20px;
+            }
+
+            .logo img {
+                max-height: 45px;
+                max-width: 150px;
+            }
+
+            .options-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .option-card {
+                width: 48%; /* Ajuste para caber dois cards lado a lado com um pequeno espaçamento */
+                max-width: 280px; /* Limite máximo para não ficarem muito grandes em telas maiores */
+                height: auto; /* Ajuste a altura automaticamente */
+                margin-bottom: 15px; /* Adiciona espaçamento entre os cards */
+            }
+
+            .option-image {
+                height: 180px; /* Altura reduzida para melhor acomodação em mobile */
+                object-fit: cover; /* Garante que a imagem cubra o espaço sem distorção */
+            }
+
+            .progress-percentage {
+                font-size: 12px;
+                top: -22px;
+            }
+        }
+
+        /* Media query adicional para telas muito pequenas */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .options-container {
+                gap: 10px;
+            }
+
+            .option-card {
+                width: 47%; /* Ligeiramente menor para telas muito pequenas */
+                padding: 12px;
+            }
+
+            .option-image {
+                height: 160px; /* Altura ainda menor para telas muito pequenas */
+            }
+
+            .gender-label {
+                font-size: 14px;
+            }
+
+            .quiz-title {
+                font-size: 18px;
+            }
+        }
+
+        /* Animação de entrada */
+        .container {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Nike -->
+        <div class="logo">
+            <img src="https://valorecapital.com.br/wp-content/uploads/2025/06/logo-nike.webp" alt="Nike Logo" />
+        </div>
+        
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <div class="live-indicator"></div>
+            <span class="social-proof-text" id="peopleCount">127 pessoas respondendo agora!</span>
+        </div>
+        
+        <!-- Barra de Progresso com 95% -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="progress-percentage">95%</div>
+        </div>
+        
+        <!-- Urgência -->
+        <div class="urgency-text">Vagas Limitadas</div>
+        
+        <!-- Título do Quiz -->
+        <h1 class="quiz-title">Pergunta 1 de 2</h1>
+        <p class="quiz-subtitle">Qual é a sua preferência?</p>
+        
+        <!-- Opções -->
+        <div class="options-container">
+            <!-- Opção 1: Tênis Jordan - MASCULINO -->
+            <div class="option-card" data-option="jordan" onclick="selectOption('jordan')">
+                <div class="option-image" style="background-image: url('https://valorecapital.com.br/wp-content/uploads/2025/07/QuizVec1-masculino.webp');"></div>
+                <div>
+                    <div class="gender-label">MASCULINO</div>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <span class="rating-text">4.9/5.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Opção 2: Tênis de Corrida - FEMININO -->
+            <div class="option-card" data-option="running" onclick="selectOption('running')">
+                <div class="option-image" style="background-image: url('https://valorecapital.com.br/wp-content/uploads/2025/07/QuizVec2-Feminino.webp');"></div>
+                <div>
+                    <div class="gender-label">FEMININO</div>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <span class="rating-text">4.8/5.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="https://valorecapital.com.br/contato/">Contato</a>
+            <a href="https://valorecapital.com.br/politica-de-privacidade/">Política de Privacidade</a>
+            <a href="https://valorecapital.com.br/quem-somos/">Quem Somos</a>
+            <a href="https://valorecapital.com.br/termos-de-uso/">Termos de Uso</a>
+        </div>
+        <div>© 2025 Valor e Capital. Todos os direitos reservados.</div>
+    </div>
+
+    <script>
+        // Função para recuperar parâmetros UTM do localStorage (integração com script do header.php)
+        function getUtmParamsFromStorage() {
+            try {
+                const storedParams = localStorage.getItem('utm_params');
+                return storedParams ? JSON.parse(storedParams) : {};
+            } catch (e) {
+                console.log('UTM Quiz: Erro ao recuperar parâmetros do localStorage:', e);
+                return {};
+            }
+        }
+
+        // Função para obter parâmetros UTM da URL atual
+        function getUtmParamsFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmParams = {};
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            
+            utmKeys.forEach(key => {
+                const value = urlParams.get(key);
+                if (value) {
+                    utmParams[key] = value;
+                }
+            });
+            
+            return utmParams;
+        }
+
+        // Função para construir URL com parâmetros UTM
+        function buildUrlWithUtm(baseUrl) {
+            // Primeiro tenta pegar da URL atual, depois do localStorage
+            let utmParams = getUtmParamsFromUrl();
+            
+            // Se não encontrou na URL atual, pega do localStorage
+            if (Object.keys(utmParams).length === 0) {
+                utmParams = getUtmParamsFromStorage();
+            }
+            
+            // Se não tem parâmetros UTM, retorna URL original
+            if (Object.keys(utmParams).length === 0) {
+                console.log('UTM Quiz: Nenhum parâmetro UTM encontrado para preservar');
+                return baseUrl;
+            }
+            
+            // Constrói a query string
+            const utmQuery = Object.keys(utmParams)
+                .map(key => `${key}=${encodeURIComponent(utmParams[key])}`)
+                .join('&');
+            
+            // Adiciona os parâmetros à URL
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const finalUrl = `${baseUrl}${separator}${utmQuery}`;
+            
+            console.log('UTM Quiz: URL com parâmetros UTM:', finalUrl);
+            console.log('UTM Quiz: Parâmetros preservados:', utmParams);
+            
+            return finalUrl;
+        }
+
+        // Função para selecionar opção e redirecionar com UTM preservado
+        function selectOption(option) {
+            // Adiciona efeito visual de seleção
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-option="${option}"]`).classList.add('selected');
+            
+            // Pequeno delay para mostrar a seleção antes de redirecionar
+            setTimeout(() => {
+                const baseUrl = 'https://valorecapital.com.br/app-rec03-nike-tenis/';
+                const finalUrl = buildUrlWithUtm(baseUrl);
+                window.location.href = finalUrl;
+            }, 300);
+        }
+        
+        // Animação do contador de pessoas
+        function updatePeopleCount() {
+            const countElement = document.getElementById('peopleCount');
+            const baseCount = 120;
+            const variation = Math.floor(Math.random() * 15) + 1;
+            const currentCount = baseCount + variation;
+            countElement.textContent = `${currentCount} pessoas respondendo agora!`;
+        }
+        
+        // Atualiza contador a cada 3-7 segundos
+        setInterval(updatePeopleCount, Math.random() * 4000 + 3000);
+        
+        // Inicializa contador
+        updatePeopleCount();
+        
+        // Adiciona efeito de hover nos cards
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(-5px)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Log para debug - mostra os parâmetros UTM disponíveis
+        console.log('UTM Quiz: Parâmetros UTM na URL atual:', getUtmParamsFromUrl());
+        console.log('UTM Quiz: Parâmetros UTM no localStorage:', getUtmParamsFromStorage());
+    </script>
+</body>
+</html>
